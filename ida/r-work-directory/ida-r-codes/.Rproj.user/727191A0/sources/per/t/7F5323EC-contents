@@ -1,0 +1,129 @@
+# Data
+mu <- 5818
+s2 <- 7273809
+n <- 24 
+
+# Test statistic
+t_stat <- (mu - 5800) / (s2/n)^(1/2) 
+
+# Degrees of freedom
+df <- n-1
+
+# P-value 
+p_value <- pt(t_stat, df)
+
+# Report
+cat("t-stat = ", t_stat)
+cat("df = ", df) 
+cat("p-value = ", p_value)
+
+if(p_value > 0.1){
+  cat("Fail to reject the null hypothesis that the mean is less than 5,800 tons")
+} else {
+  cat("Reject the null hypothesis that the mean is less than 5,800 tons")
+}
+
+
+#question 2
+# Sample data
+x = c(14.5, 14.2, 14.4, 14.3, 14.6) 
+
+# Sample size
+n = length(x)
+
+# Sample mean
+xbar = mean(x)
+
+# Population mean claimed 
+mu = 14.0
+
+# Sample standard deviation
+s = sd(x)
+
+# Degrees of freedom
+df = n - 1
+
+# Test statistic
+t_stat = (xbar - mu) / (s/sqrt(n))  
+
+# P-value from t distribution
+p_value = 2*pt(abs(t_stat), df)
+
+# Report
+cat("Sample mean (xbar): ", xbar)
+cat("Claimed population mean (mu): ", mu)
+cat("t-stat: ", t_stat)
+cat("p-value: ", p_value)
+
+if(p_value < 0.05){
+  cat("Reject null hypothesis that population mean is 14.0") 
+} else {
+  cat("Reject null hypothesis that population mean is 14.0")
+}
+
+
+#question 3b
+# Paired t-test 
+# Before data
+before <- c(45, 73, 46, 124, 33, 57, 83, 34, 26, 17)
+
+# After data 
+after <- c(36, 60, 44, 119, 35, 51, 77, 29, 24, 11) 
+t_test <- t.test(before, after, paired = TRUE)
+
+# Extract p-value
+p_value <- t_test$p.value
+
+# Report test at 0.05 level
+cat("t-statistic = ", t_test$statistic) 
+cat("p-value = ", p_value)
+
+if(p_value < 0.05){
+  cat("Reject null hypothesis that safety program had no effect")
+} else {
+  cat("Fail to reject null hypothesis that safety program had no effect")  
+}
+
+
+#question 3c
+# Data
+before <- c(45, 73, 46, 124, 33, 57, 83, 34, 26, 17)
+after <- c(36, 60, 44, 119, 35, 51, 77, 29, 24, 11)
+
+# Sign test
+sign_test <- wilcox.test(before, after, paired = TRUE, exact = FALSE)
+
+# Extract p-value
+p_value <- sign_test$p.value 
+
+# Report test at 0.05 level
+cat("Number of negative differences =", sign_test$statistic)
+cat("p-value =", p_value)
+
+if(p_value < 0.05){
+  cat("Reject null hypothesis that safety program had no effect")
+} else {
+  cat("Fail to reject null hypothesis that safety program had no effect")
+}
+
+
+#question 4
+# Data
+x <- c(0.265, 0.263, 0.266, 0.267, 0.267, 0.265, 0.267, 0.267, 0.265, 0.268, 0.268, 0.263) 
+
+# Claimed mean
+mu <- 0.265
+
+# Wilcoxon signed-rank test
+test <- wilcox.test(x, mu, alternative = "two.sided", exact = FALSE)
+
+# Output
+cat("Test statistic = ", test$statistic) 
+cat("p-value = ", test$p.value)
+
+if(test$p.value < 0.05){
+  cat("Reject the claim that the mean diameter is 0.265 mm")
+} else {
+  cat("Fail to reject the claim that the mean diameter is 0.265 mm")
+}
+
